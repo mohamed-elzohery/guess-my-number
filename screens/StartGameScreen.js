@@ -5,6 +5,7 @@ import PrimaryBtn from "../components/PrimaryBtn";
 const StartGameScreen = () => {
     return <View style={styles.inputContainer}>
         <TextInput
+        selectionColor="#dbb52f"
          maxLength={2} 
          style={styles.input} 
          keyboardType="number-pad"
@@ -19,7 +20,7 @@ const StartGameScreen = () => {
 
 const styles = StyleSheet.create({
     inputContainer: {
-        backgroundColor: '#72063c',
+        backgroundColor: '#46090f',
         marginTop: 100,
         padding: 16,
         marginHorizontal: 24,
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         fontWeight: 'bold',
         textAlign: "center",
-        marginVertical: 8
+        marginVertical: 8,
     }
 });
 
