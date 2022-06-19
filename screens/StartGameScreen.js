@@ -1,26 +1,35 @@
+import { useEffect, useRef } from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import PrimaryBtn from "../components/PrimaryBtn";
 
 
 const StartGameScreen = () => {
+
     return <View style={styles.inputContainer}>
         <TextInput
-        selectionColor="#dbb52f"
+        autoFocus={true}
+         selectionColor="#dbb52f"
          maxLength={2} 
          style={styles.input} 
          keyboardType="number-pad"
          autoCapitalize="none"
          autoCorrect={false}  /> 
-        <View>
-            <PrimaryBtn>Reset</PrimaryBtn>
-            <PrimaryBtn>Confirm</PrimaryBtn>
+        <View style={styles.btnsContainer}>
+            <View style={styles.btnContainer}>
+                <PrimaryBtn>Confirm</PrimaryBtn>
+            </View>
+            <View style={styles.btnContainer}>
+                <PrimaryBtn>Reset</PrimaryBtn>
+            </View>
         </View>
     </View>
 }
 
 const styles = StyleSheet.create({
     inputContainer: {
-        backgroundColor: '#46090f',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#3b021f',
         marginTop: 100,
         padding: 16,
         marginHorizontal: 24,
@@ -40,6 +49,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: "center",
         marginVertical: 8,
+    },
+    btnsContainer: {
+        flexDirection: 'row',
+        marginTop: 20,
+        justifyContent: 'center',
+        alignSelf: 'stretch',
+    },
+    btnContainer: {
+        flex: 1
     }
 });
 
