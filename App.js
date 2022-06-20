@@ -7,6 +7,7 @@ import GameScreen from './screens/GameScreen';
 import EndGameScreen from './screens/EndGameScreen';
 
 import LinearGradient from 'react-native-linear-gradient';
+import Colors from './constants/Colors';
 
 
 export default function App() {
@@ -23,8 +24,8 @@ export default function App() {
   }
 
   return <>
-  <StatusBar barStyle={"light-content"} backgroundColor={"#4e0329"}/>
-  <LinearGradient style={styles.root} colors={["#4e0329", "#ddb52f"]}>
+  <StatusBar barStyle={"light-content"} backgroundColor={Colors.primary500}/>
+  <LinearGradient style={styles.root} colors={[Colors.primary500, Colors.accent500]}>
   <ImageBackground
    resizeMode='cover'
    source={require('./assets/dices.jpg')}

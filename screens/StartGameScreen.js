@@ -1,6 +1,7 @@
 import { TextInput, View, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 import PrimaryBtn from "../components/PrimaryBtn";
+import Colors from "../constants/Colors";
 
 
 const StartGameScreen = ({switchScreen}) => {
@@ -32,7 +33,7 @@ const StartGameScreen = ({switchScreen}) => {
         value={enteredNumber}
         onChangeText={onChangeHandler}
         autoFocus={true}
-         selectionColor="#dbb52f"
+         selectionColor={Colors.accent500}
          maxLength={2} 
          style={styles.input} 
          keyboardType="number-pad"
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     inputContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#3b021f',
+        backgroundColor: Colors.primary800,
         marginTop: 100,
         padding: 16,
         marginHorizontal: 24,
@@ -67,8 +68,8 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         fontSize: 32,
-        color: '#ddb52f',
-        borderBottomColor: '#ddb52f',
+        color: Colors.accent500,
+        borderBottomColor: Colors.accent500,
         borderBottomWidth: 2,
         fontWeight: 'bold',
         textAlign: "center",
