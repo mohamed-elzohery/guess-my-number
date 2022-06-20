@@ -30,7 +30,7 @@ export default function App() {
    source={require('./assets/dices.jpg')}
    style={styles.root}
    imageStyle={styles.imgStyle}>
-    <SafeAreaView>{screens[screen]()}</SafeAreaView>
+    <SafeAreaView style={styles.root}>{screens[screen]()}</SafeAreaView>
   </ImageBackground>
   </LinearGradient>
   </>
