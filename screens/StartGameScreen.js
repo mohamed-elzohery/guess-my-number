@@ -1,12 +1,38 @@
-import { useEffect, useRef } from "react";
-import { TextInput, View, StyleSheet } from "react-native";
+import { TextInput, View, StyleSheet, Alert } from "react-native";
+import { useState } from "react";
 import PrimaryBtn from "../components/PrimaryBtn";
 
 
 const StartGameScreen = () => {
+    const [enteredNumber, setEnteredNumber] = useState('');
+
+    const onChangeHandler = (enteredValue) => {
+        setEnteredNumber(enteredValue);
+    }
+
+    const onConfirmHandler = () => {
+        const enteredVal = parseInt(enteredNumber);
+        console.log(enteredVal);
+        console.log(enteredNumber);
+
+        if(isNaN(enteredVal) || enteredVal < 1 || enteredVal > 100){
+            Alert.alert('Invalid Number',
+             "Enter number between 1 ~ 99.",
+              [{style: 'destructive', text: 'Okay', onPress: onResetHandler}]);
+              return;
+        }
+
+        //Swtich to game
+    }
+
+    const onResetHandler = () => {
+        setEnteredNumber('');
+    }
 
     return <View style={styles.inputContainer}>
         <TextInput
+        value={enteredNumber}
+        onChangeText={onChangeHandler}
         autoFocus={true}
          selectionColor="#dbb52f"
          maxLength={2} 
@@ -16,10 +42,10 @@ const StartGameScreen = () => {
          autoCorrect={false}  /> 
         <View style={styles.btnsContainer}>
             <View style={styles.btnContainer}>
-                <PrimaryBtn>Confirm</PrimaryBtn>
+                <PrimaryBtn onPressHandler={onConfirmHandler}>Confirm</PrimaryBtn>
             </View>
             <View style={styles.btnContainer}>
-                <PrimaryBtn>Reset</PrimaryBtn>
+                <PrimaryBtn onPressHandler={onResetHandler}>Reset</PrimaryBtn>
             </View>
         </View>
     </View>
