@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Text, StyleSheet, View, Alert } from "react-native";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryBtn from '../components/UI/PrimaryBtn';
@@ -12,10 +12,22 @@ const getRandomGuess = (min, max, exclude) => {
 
 let maxBoundary = 100;
 let minBoundary = 1;
-const GameScreen = ({chosenNumber}) => {
-    const initialGuess = getRandomGuess(minBoundary, maxBoundary, chosenNumber);
+const GameScreen = ({chosenNumber, switchScreen, setChosenNumber}) => {
+    const initialGuess = useMemo(() => getRandomGuess(minBoundary, maxBoundary, chosenNumber), []);
 
     const [guess, setGuess] = useState(initialGuess);
+
+    const onGetTheRightNumber = () => {
+        switchScreen("endGameScreen");
+        setChosenNumber('');
+    }
+
+    useEffect(() => {
+        if(chosenNumber === guess){
+            console.log(guess)
+            onGetTheRightNumber();
+        }
+    }, [guess, chosenNumber, onGetTheRightNumber])
     
     const nextGuessHandler = (direction) => {
         if((direction === 'lower' && chosenNumber > guess)

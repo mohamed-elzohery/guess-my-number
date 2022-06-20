@@ -22,7 +22,7 @@ export default function App() {
 
   const screens = {
     startScreen: () => <StartGameScreen switchScreen={switchScreen} setChosenNumber={setChosenNumber}/>,
-    gameScreen: () => <GameScreen chosenNumber={chosenNumber}/>,
+    gameScreen: () => <GameScreen setChosenNumber={setChosenNumber} chosenNumber={chosenNumber} switchScreen={switchScreen}/>,
     endGameScreen: () => <EndGameScreen/>,
   }
 
