@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     numberTxt: {
         color: Colors.accent500,
         fontSize: 36,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'Lato-Bold'
     }
 });
 

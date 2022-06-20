@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, StatusBar, SafeAreaView } from 'react-native';
 import { ImageBackground } from "react-native";
-
+import {useFonts} from 'expo-font';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import EndGameScreen from './screens/EndGameScreen';
@@ -13,8 +13,12 @@ import Colors from './constants/Colors';
 export default function App() {
   const [screen, setScreen] = useState('startScreen');
   const [chosenNumber, setChosenNumber] = useState('');
+  const [fontsLoaded] = useFonts({
+    Lato: require('./assets/fonts/Lato-Regular.ttf'),
+    'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf')
+  });
 
-
+  if(!fontsLoaded) return null;
 
   const switchScreen = (screenName) => {
     setScreen(screenName);
@@ -31,7 +35,7 @@ export default function App() {
   <LinearGradient style={styles.root} colors={[Colors.primary500, Colors.accent500]}>
   <ImageBackground
    resizeMode='cover'
-   source={require('./assets/dices.jpg')}
+   source={require('./assets/images/dices.jpg')}
    style={styles.root}
    imageStyle={styles.imgStyle}>
     <SafeAreaView style={styles.root}>{screens[screen]()}</SafeAreaView>

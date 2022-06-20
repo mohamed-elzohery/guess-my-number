@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
     insTxt: {
         color: Colors.accent500,
         textAlign: 'center',
-        fontSize: 32
+        fontSize: 32,
+        fontFamily: 'Lato-Bold'
     }
 });
 

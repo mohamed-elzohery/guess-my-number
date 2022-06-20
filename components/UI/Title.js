@@ -8,6 +8,7 @@ const Title = ({children}) => {
 
 const styles = StyleSheet.create({
     title: {
+        fontFamily: 'Lato',
         fontSize: 30,
         padding: 12,
         borderWidth: 2,
