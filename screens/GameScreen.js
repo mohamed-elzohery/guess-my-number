@@ -5,6 +5,8 @@ import Card from "../components/UI/Card";
 import InstructionsText from "../components/UI/InstructionsTxt";
 import PrimaryBtn from '../components/UI/PrimaryBtn';
 import Title from "../components/UI/Title";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Colors from "../constants/Colors";
 
 const getRandomGuess = (min, max, exclude) => {
     const rnd = Math.floor(Math.random() * (max - min)) + min;
@@ -49,18 +51,35 @@ const GameScreen = ({chosenNumber, switchScreen, setChosenNumber}) => {
         <NumberContainer>{guess}</NumberContainer>
         <Card>
         <InstructionsText>Higher or lower?</InstructionsText>
-        <View>
-            <PrimaryBtn onPressHandler={nextGuessHandler.bind(this, 'lower')}>-</PrimaryBtn>
-            <PrimaryBtn onPressHandler={nextGuessHandler.bind(this, 'higher')}>+</PrimaryBtn>
-        </View>
+        <View style={styles.btnsContainer}>
+                <View style={styles.btnContainer}>
+                    <PrimaryBtn onPressHandler={nextGuessHandler.bind(this, 'lower')}>
+                        <Ionicons name="md-remove" color={Colors.white} size={24} />
+                    </PrimaryBtn>
+                </View>
+                <View style={styles.btnContainer}>
+                    <PrimaryBtn onPressHandler={nextGuessHandler.bind(this, 'higher')}>
+                        <Ionicons name="md-add" color={Colors.white} size={24} />
+                    </PrimaryBtn>
+                </View>
+            </View>
         </Card>
-    </View>
+        </View>
 }
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
         padding: 24,
+    },
+    btnsContainer: {
+        flexDirection: 'row',
+        marginTop: 20,
+        justifyContent: 'center',
+        alignSelf: 'stretch',
+    },
+    btnContainer: {
+        flex: 1
     }
 });
 
