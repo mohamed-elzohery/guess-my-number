@@ -12,14 +12,17 @@ import Colors from './constants/Colors';
 
 export default function App() {
   const [screen, setScreen] = useState('startScreen');
+  const [chosenNumber, setChosenNumber] = useState('');
+
+
 
   const switchScreen = (screenName) => {
     setScreen(screenName);
   }
 
   const screens = {
-    startScreen: () => <StartGameScreen switchScreen={switchScreen}/>,
-    gameScreen: () => <GameScreen/>,
+    startScreen: () => <StartGameScreen switchScreen={switchScreen} setChosenNumber={setChosenNumber}/>,
+    gameScreen: () => <GameScreen chosenNumber={chosenNumber}/>,
     endGameScreen: () => <EndGameScreen/>,
   }
 

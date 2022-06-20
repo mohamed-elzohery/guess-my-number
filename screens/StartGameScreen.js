@@ -1,10 +1,10 @@
 import { TextInput, View, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
-import PrimaryBtn from "../components/PrimaryBtn";
+import PrimaryBtn from "../components/UI/PrimaryBtn";
 import Colors from "../constants/Colors";
 
 
-const StartGameScreen = ({switchScreen}) => {
+const StartGameScreen = ({switchScreen, setChosenNumber}) => {
     const [enteredNumber, setEnteredNumber] = useState('');
 
     const onChangeHandler = (enteredValue) => {
@@ -22,6 +22,7 @@ const StartGameScreen = ({switchScreen}) => {
         }
 
         switchScreen('gameScreen');
+        setChosenNumber(enteredVal);
     }
 
     const onResetHandler = () => {
