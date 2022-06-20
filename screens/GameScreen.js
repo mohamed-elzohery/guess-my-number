@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, memo, useCallback } from "react";
 import { Text, StyleSheet, View, Alert } from "react-native";
 import NumberContainer from "../components/game/NumberContainer";
 import Card from "../components/UI/Card";
@@ -16,22 +16,31 @@ const getRandomGuess = (min, max, exclude) => {
 
 let maxBoundary = 100;
 let minBoundary = 1;
-const GameScreen = ({chosenNumber, switchScreen, setChosenNumber}) => {
+const GameScreen = ({chosenNumber, switchScreen, getRoundsNumber}) => {
     const initialGuess = useMemo(() => getRandomGuess(minBoundary, maxBoundary, chosenNumber), []);
 
     const [guess, setGuess] = useState(initialGuess);
+    const [roundsNumber, setRoundsNumber] = useState(1);
+
+    console.log(guess);
+    console.log("max: " + maxBoundary);
+    console.log("min: " + minBoundary);
+    console.log(chosenNumber);
 
     const onGetTheRightNumber = () => {
+        maxBoundary = 100;
+        minBoundary = 1;
         switchScreen("endGameScreen");
-        setChosenNumber('');
+        getRoundsNumber(roundsNumber);
     }
 
     useEffect(() => {
+        setRoundsNumber(prevRounds => prevRounds + 1);
+        console.log(roundsNumber)
         if(chosenNumber === guess){
-            console.log(guess)
             onGetTheRightNumber();
         }
-    }, [guess, chosenNumber, onGetTheRightNumber])
+    }, [guess, chosenNumber])
     
     const nextGuessHandler = (direction) => {
         if((direction === 'lower' && chosenNumber > guess)

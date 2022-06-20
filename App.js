@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import { ImageBackground } from "react-native";
 import {useFonts} from 'expo-font';
 import StartGameScreen from './screens/StartGameScreen';
@@ -9,10 +9,13 @@ import EndGameScreen from './screens/EndGameScreen';
 import LinearGradient from 'react-native-linear-gradient';
 import Colors from './constants/Colors';
 
+let rndsNumber = 0;
 
 export default function App() {
   const [screen, setScreen] = useState('startScreen');
   const [chosenNumber, setChosenNumber] = useState('');
+
+
   const [fontsLoaded] = useFonts({
     Lato: require('./assets/fonts/Lato-Regular.ttf'),
     'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf')
@@ -22,12 +25,28 @@ export default function App() {
 
   const switchScreen = (screenName) => {
     setScreen(screenName);
+  };
+
+  const getRoundsNumber = (roundsNumber) => {
+    rndsNumber = roundsNumber
   }
 
   const screens = {
-    startScreen: () => <StartGameScreen switchScreen={switchScreen} setChosenNumber={setChosenNumber}/>,
-    gameScreen: () => <GameScreen setChosenNumber={setChosenNumber} chosenNumber={chosenNumber} switchScreen={switchScreen}/>,
-    endGameScreen: () => <EndGameScreen/>,
+    startScreen: () => <StartGameScreen 
+    switchScreen={switchScreen} 
+    setChosenNumber={setChosenNumber}/>,
+
+    gameScreen: () => <GameScreen 
+    getRoundsNumber={getRoundsNumber} 
+    chosenNumber={chosenNumber} 
+    switchScreen={switchScreen}/>,
+
+    endGameScreen: () => <EndGameScreen 
+    roundsNumber={rndsNumber} 
+    setRoundsNumber={getRoundsNumber} 
+    setChosenNumber={setChosenNumber}
+    switchScreen={switchScreen}
+    chosenNumber={chosenNumber}  />,
   }
 
   return <>
