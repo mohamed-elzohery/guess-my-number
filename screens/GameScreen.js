@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, memo, useCallback } from "react";
-import { Text, StyleSheet, View, Alert } from "react-native";
+import { Text, StyleSheet, View, Alert, FlatList } from "react-native";
 import NumberContainer from "../components/game/NumberContainer";
 import Card from "../components/UI/Card";
 import InstructionsText from "../components/UI/InstructionsTxt";
@@ -7,6 +7,7 @@ import PrimaryBtn from '../components/UI/PrimaryBtn';
 import Title from "../components/UI/Title";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../constants/Colors";
+import RoundItem from "../components/game/RoundItem";
 
 const getRandomGuess = (min, max, exclude) => {
     const rnd = Math.floor(Math.random() * (max - min)) + min;
@@ -20,7 +21,7 @@ const GameScreen = ({chosenNumber, switchScreen, getRoundsNumber}) => {
     const initialGuess = useMemo(() => getRandomGuess(minBoundary, maxBoundary, chosenNumber), []);
 
     const [guess, setGuess] = useState(initialGuess);
-    const [roundsNumber, setRoundsNumber] = useState(1);
+    const [roundsNumber, setRoundsNumber] = useState([{number: initialGuess, id: 1}]);
 
     console.log(guess);
     console.log("max: " + maxBoundary);
@@ -28,19 +29,27 @@ const GameScreen = ({chosenNumber, switchScreen, getRoundsNumber}) => {
     console.log(chosenNumber);
 
     const onGetTheRightNumber = () => {
-        maxBoundary = 100;
-        minBoundary = 1;
+        
         switchScreen("endGameScreen");
         getRoundsNumber(roundsNumber);
     }
 
     useEffect(() => {
-        setRoundsNumber(prevRounds => prevRounds + 1);
         console.log(roundsNumber)
         if(chosenNumber === guess){
             onGetTheRightNumber();
         }
-    }, [guess, chosenNumber])
+    }, [guess, chosenNumber]);
+
+    useEffect(() => {
+        maxBoundary = 100;
+        minBoundary = 1;
+
+        return () => {
+            maxBoundary = 100;
+            minBoundary = 1;
+        }
+    }, [])
     
     const nextGuessHandler = (direction) => {
         if((direction === 'lower' && chosenNumber > guess)
@@ -49,11 +58,13 @@ const GameScreen = ({chosenNumber, switchScreen, getRoundsNumber}) => {
             return;
         }
 
-        if(direction === 'lower')maxBoundary = guess;
-        if(direction === 'higher')minBoundary = guess + 1;
+        if(direction === 'lower') maxBoundary = guess;
+        if(direction === 'higher') minBoundary = guess + 1;
 
         const rndNumber = getRandomGuess(minBoundary, maxBoundary, guess);
         setGuess(rndNumber);
+        setRoundsNumber(prevRounds => [...prevRounds, {number: rndNumber, id: roundsNumber.length + 1}]);
+
     }
     return <View style={styles.screen}>
         <Title>Opponent's Guess</Title>
@@ -73,6 +84,12 @@ const GameScreen = ({chosenNumber, switchScreen, getRoundsNumber}) => {
                 </View>
             </View>
         </Card>
+        {console.log(roundsNumber)}
+        <View style={styles.list}>
+        <FlatList data={roundsNumber}
+        renderItem={({item: {number, id}}) => <RoundItem id={id} number={number} />}
+        keyExtractor={({number}) => number}/>
+        </View>
         </View>
 }
 
@@ -89,7 +106,12 @@ const styles = StyleSheet.create({
     },
     btnContainer: {
         flex: 1
-    }
+    },
+    list: {
+        marginVertical: 16,
+        flex: 1
+    },
+    
 });
 
 export default GameScreen;

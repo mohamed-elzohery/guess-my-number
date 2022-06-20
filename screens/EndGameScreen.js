@@ -4,7 +4,7 @@ import Title from "../components/UI/Title";
 import Colors from "../constants/Colors";
 const EndGameScreen = ({roundsNumber, setRoundsNumber, setChosenNumber, switchScreen, chosenNumber}) => {
     const restartGame = () => {
-        setRoundsNumber(0);
+        setRoundsNumber([]);
         setChosenNumber('');
         switchScreen('startScreen');
     };
@@ -14,7 +14,7 @@ const EndGameScreen = ({roundsNumber, setRoundsNumber, setChosenNumber, switchSc
         <View style={styles.imgContainer}>
             <Image source={require('../assets/images/success.png')} style={styles.img}/>
         </View>
-        <Text style={styles.stat}>Your phone needed <Text style={styles.highlight}>{roundsNumber} </Text>
+        <Text style={styles.stat}>Your phone needed <Text style={styles.highlight}>{roundsNumber.length} </Text>
          rounds to get the number <Text style={styles.highlight}>{chosenNumber}</Text>
         </Text>
         <PrimaryBtn onPressHandler={restartGame}>Start New Game</PrimaryBtn>
