@@ -3,7 +3,7 @@ import { useState } from "react";
 import PrimaryBtn from "../components/PrimaryBtn";
 
 
-const StartGameScreen = () => {
+const StartGameScreen = ({switchScreen}) => {
     const [enteredNumber, setEnteredNumber] = useState('');
 
     const onChangeHandler = (enteredValue) => {
@@ -12,8 +12,6 @@ const StartGameScreen = () => {
 
     const onConfirmHandler = () => {
         const enteredVal = parseInt(enteredNumber);
-        console.log(enteredVal);
-        console.log(enteredNumber);
 
         if(isNaN(enteredVal) || enteredVal < 1 || enteredVal > 100){
             Alert.alert('Invalid Number',
@@ -22,7 +20,7 @@ const StartGameScreen = () => {
               return;
         }
 
-        //Swtich to game
+        switchScreen('gameScreen');
     }
 
     const onResetHandler = () => {
